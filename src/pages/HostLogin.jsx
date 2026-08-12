@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Linkedin, Info } from 'lucide-react';
 
 export default function HostLogin() {
   const [error, setError] = useState('');
@@ -23,8 +23,8 @@ export default function HostLogin() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <div className="glass-panel p-10 rounded-3xl max-w-md w-full text-center relative overflow-hidden" style={{ animation: 'float 6s ease-in-out infinite' }}>
+    <div className="flex flex-col min-h-screen items-center justify-center p-4 py-12">
+      <div className="glass-panel p-10 rounded-3xl max-w-md w-full text-center relative overflow-hidden mb-12" style={{ animation: 'float 6s ease-in-out infinite' }}>
         
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500"></div>
         
@@ -69,6 +69,33 @@ export default function HostLogin() {
             </>
           )}
         </button>
+      </div>
+
+      {/* About Section */}
+      <div className="max-w-2xl w-full glass-panel p-8 rounded-3xl text-indigo-100/90 border border-white/10 shadow-xl bg-black/20 backdrop-blur-md">
+        <div className="flex items-center mb-4">
+          <Info className="w-6 h-6 mr-3 text-indigo-400" />
+          <h2 className="text-2xl font-bold text-white">About Submission Evaluator</h2>
+        </div>
+        <p className="mb-4 leading-relaxed text-sm md:text-base">
+          Submission Evaluator is a premium platform designed to streamline the collection and evaluation of project submissions for hackathons, competitions, and corporate events. It features real-time anonymous voting, seamless cloud storage for media handling, and intuitive host dashboards.
+        </p>
+        
+        <div className="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-center md:text-left">
+            <p className="font-semibold text-white mb-1">Developed by</p>
+            <p className="text-indigo-300 font-bold text-lg">K Dheeran</p>
+          </div>
+          <a 
+            href="https://www.linkedin.com/in/k-dheeran-37684a315" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center px-6 py-3 bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/30 text-blue-300 hover:text-white rounded-xl transition-all font-semibold shadow-lg shadow-blue-900/20"
+          >
+            <Linkedin className="w-5 h-5 mr-3" />
+            Connect on LinkedIn
+          </a>
+        </div>
       </div>
     </div>
   );
