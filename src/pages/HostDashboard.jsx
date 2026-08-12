@@ -3,7 +3,8 @@ import { db, auth } from '../firebase';
 import { collection, query, where, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
-import { PlusCircle, LogOut, Calendar, Link as LinkIcon, FileText, ChevronRight, LayoutDashboard } from 'lucide-react';
+import { PlusCircle, LogOut, Calendar, Link as LinkIcon, FileText, ChevronRight, LayoutDashboard, Sparkles } from 'lucide-react';
+import { generateDemoEvent } from '../utils/demoData';
 
 export default function HostDashboard() {
   const [events, setEvents] = useState([]);
@@ -60,6 +61,17 @@ export default function HostDashboard() {
     }
   };
 
+  const handleGenerateDemo = async () => {
+    setLoading(true);
+    const success = await generateDemoEvent(user.uid);
+    if (success) {
+      fetchEvents(user.uid);
+    } else {
+      setLoading(false);
+      alert("Failed to generate demo event.");
+    }
+  };
+
   const handleLogout = () => {
     signOut(auth).then(() => navigate('/'));
   };
@@ -98,12 +110,20 @@ export default function HostDashboard() {
             <h2 className="text-4xl font-extrabold text-white mb-2">Welcome Back</h2>
             <p className="text-indigo-200/70 font-medium">Manage your submission evaluation events.</p>
           </div>
-          <button 
-            onClick={() => setShowCreateModal(true)}
-            className="mt-6 md:mt-0 flex items-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-500/30 transition-all transform hover:scale-105 hover:-translate-y-1"
-          >
-            <PlusCircle size={20} className="mr-2" /> Create New Event
-          </button>
+          <div className="flex space-x-4 mt-6 md:mt-0">
+            <button 
+              onClick={handleGenerateDemo}
+              className="flex items-center bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 hover:text-white px-6 py-3 rounded-2xl font-bold border border-indigo-500/30 transition-all transform hover:scale-105 hover:-translate-y-1"
+            >
+              <Sparkles size={20} className="mr-2" /> Generate Demo Event
+            </button>
+            <button 
+              onClick={() => setShowCreateModal(true)}
+              className="flex items-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-500/30 transition-all transform hover:scale-105 hover:-translate-y-1"
+            >
+              <PlusCircle size={20} className="mr-2" /> Create New Event
+            </button>
+          </div>
         </div>
 
         {events.length === 0 ? (
