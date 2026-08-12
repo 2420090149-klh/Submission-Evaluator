@@ -36,6 +36,13 @@ export default function VotingForm() {
         const subs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         
         setSubmissions(subs.sort(() => Math.random() - 0.5));
+        
+        // Initialize default votes to 5 for all submissions
+        const defaultVotes = {};
+        subs.forEach(sub => {
+          defaultVotes[sub.id] = 5;
+        });
+        setVotes(defaultVotes);
       } else if (docSnap.exists() && docSnap.data().status !== 'voting') {
         setError('Voting is not currently active for this event.');
       } else {
