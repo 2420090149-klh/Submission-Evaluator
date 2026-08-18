@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Linkedin, Info } from 'lucide-react';
+import { Sparkles, Globe, Info } from 'lucide-react';
 
 export default function HostLogin() {
   const [error, setError] = useState('');
@@ -92,7 +92,7 @@ export default function HostLogin() {
             rel="noopener noreferrer"
             className="flex items-center px-6 py-3 bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/30 text-blue-300 hover:text-white rounded-xl transition-all font-semibold shadow-lg shadow-blue-900/20"
           >
-            <Linkedin className="w-5 h-5 mr-3" />
+            <Globe className="w-5 h-5 mr-3" />
             Connect on LinkedIn
           </a>
         </div>
